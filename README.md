@@ -3,7 +3,7 @@ Terraform module which sends memory usage alerts to SNS Topic via CloudWatch Log
 
 ## Terraform versions
 
-Terraform 0.11 or above
+For terraform 0.11 use release v1.0.0, for terraform 0.12+ use v2.0.0
 
 ## Usage
 ```hcl
