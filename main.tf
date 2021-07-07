@@ -5,39 +5,39 @@ locals {
 }
 
 data "aws_lambda_function" "this" {
-  function_name = "${var.function_name}"
+  function_name = var.function_name
 }
 
 data "aws_sns_topic" "this" {
-  name = "${var.sns_topic_name}"
+  name = var.sns_topic_name
 }
 
 data "aws_cloudwatch_log_group" "this" {
-  name = "${local.cloudwatch_log_group_name}"
+  name = local.cloudwatch_log_group_name
 }
 
 resource "aws_cloudwatch_log_metric_filter" "calculator-memory-used" {
   name           = "${var.function_name}-memory-used"
-  log_group_name = "${local.cloudwatch_log_group_name}"
+  log_group_name = local.cloudwatch_log_group_name
 
-  pattern = "${local.metrics_pattern}"
+  pattern = local.metrics_pattern
 
   metric_transformation {
     name      = "MemoryUsed-${var.function_name}"
-    namespace = "${var.metrics_namespace}"
+    namespace = var.metrics_namespace
     value     = "$max_memory_used_value"
   }
 }
 
 resource "aws_cloudwatch_log_metric_filter" "calculator-memory-size" {
   name           = "${var.function_name}-memory-size"
-  log_group_name = "${local.cloudwatch_log_group_name}"
+  log_group_name = local.cloudwatch_log_group_name
 
-  pattern = "${local.metrics_pattern}"
+  pattern = local.metrics_pattern
 
   metric_transformation {
     name      = "MemorySize-${var.function_name}"
-    namespace = "${var.metrics_namespace}"
+    namespace = var.metrics_namespace
     value     = "$memory_size_value"
   }
 }
@@ -45,16 +45,16 @@ resource "aws_cloudwatch_log_metric_filter" "calculator-memory-size" {
 resource "aws_cloudwatch_metric_alarm" "calculator_memory_alarm" {
   alarm_name                = "${var.function_name}-memory-usage"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
-  evaluation_periods        = "${var.evaluation_periods}"
-  threshold                 = "${var.threshold_percent}"
+  evaluation_periods        = var.evaluation_periods
+  threshold                 = var.threshold_percent
   alarm_description         = "Lambda memory usage has exceeded ${var.threshold_percent}%"
   insufficient_data_actions = []
 
   alarm_actions = [
-    "${data.aws_sns_topic.this.arn}"
+    data.aws_sns_topic.this.arn,
   ]
 
-  tags = "${var.tags}"
+  tags = var.tags
 
   metric_query {
     id          = "e1"
@@ -67,8 +67,8 @@ resource "aws_cloudwatch_metric_alarm" "calculator_memory_alarm" {
     id = "m1"
     metric {
       metric_name = "MemorySize-${var.function_name}"
-      namespace   = "${var.metrics_namespace}"
-      period      = "${var.period}"
+      namespace   = var.metrics_namespace
+      period      = var.period
       stat        = "Maximum"
     }
   }
@@ -76,9 +76,10 @@ resource "aws_cloudwatch_metric_alarm" "calculator_memory_alarm" {
     id = "m2"
     metric {
       metric_name = "MemoryUsed-${var.function_name}"
-      namespace   = "${var.metrics_namespace}"
-      period      = "${var.period}"
+      namespace   = var.metrics_namespace
+      period      = var.period
       stat        = "Maximum"
     }
   }
 }
+

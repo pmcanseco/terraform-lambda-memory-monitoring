@@ -20,12 +20,14 @@ variable "period" {
   description = "The period in seconds over which the specified threshold is applied. (CloudWatch Alarm)"
   default     = 300
 }
+
 variable "evaluation_periods" {
   description = "The number of periods over which data is compared to the specified threshold. (CloudWatch Alarm)"
   default     = 1
 }
 
 variable "tags" {
-  type    = "map"
+  type    = map(string)
   default = {}
 }
+
