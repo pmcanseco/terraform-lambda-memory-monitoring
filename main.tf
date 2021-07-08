@@ -1,6 +1,6 @@
 locals {
-  // REPORT RequestId: 895ecd24-501b-485a-9329-fcb7ce9ad943	Duration: 3.66 ms	Billed Duration: 100 ms	Memory Size: 256 MB	Max Memory Used: 146 MB	Init Duration: 554.57 ms	
-  metrics_pattern           = "[report_name=\"REPORT\", request_id_name=\"RequestId:\", request_id_value, duration_name=\"Duration:\", duration_value, duration_unit=\"ms\", billed_duration_name_1=\"Billed\", bill_duration_name_2=\"Duration:\", billed_duration_value, billed_duration_unit=\"ms\", memory_size_name_1=\"Memory\", memory_size_name_2=\"Size:\", memory_size_value, memory_size_unit=\"MB\", max_memory_used_name_1=\"Max\", max_memory_used_name_2=\"Memory\", max_memory_used_name_3=\"Used:\", max_memory_used_value, max_memory_used_unit=\"MB\", xray_trace_id_name_1=\"XRAY\", xray_trace_id_name_2=\"TraceId:\", xray_trace_id_value, xray_segment_id_name=\"SegmentId:\", xray_segment_id_value]"
+  // REPORT RequestId: 895ecd24-501b-485a-9329-fcb7ce9ad943	Duration: 3.66 ms	Billed Duration: 100 ms	Memory Size: 256 MB	Max Memory Used: 146 MB	Init Duration: 554.57 ms
+  metrics_pattern           = "[report_name=\"REPORT\", request_id_name=\"RequestId:\", request_id_value, duration_name=\"Duration:\", duration_value, duration_unit=\"ms\", billed_duration_name_1=\"Billed\", bill_duration_name_2=\"Duration:\", billed_duration_value, billed_duration_unit=\"ms\", memory_size_name_1=\"Memory\", memory_size_name_2=\"Size:\", memory_size_value, memory_size_unit=\"MB\", max_memory_used_name_1=\"Max\", max_memory_used_name_2=\"Memory\", max_memory_used_name_3=\"Used:\", max_memory_used_value, max_memory_used_unit=\"MB\", ...]"
   cloudwatch_log_group_name = "/aws/lambda/${var.function_name}"
 }
 
