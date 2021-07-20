@@ -7,12 +7,12 @@ For terraform 0.11 use release v1.0.0, for terraform 0.12+ use v2.0.0
 
 ## Usage
 ```hcl
-module "some-unique-identifier" {
-  source = "github.com/bskim45/terraform-lambda-memory-monitoring?ref=v1.0.0"
+module "mylambda_memory_alarm" {
+  source = "github.com/pmcanseco/terraform-lambda-memory-monitoring?ref=v2.0.1"
 
   function_name      = "lambda-function-name"
   sns_topic_name     = "sns-topic-name"
-  metrics_namespace  = "ConcurrencyLabs/Lambda/"
+  metrics_namespace  = "MyApp/MyLambda/"
   threshold_percent  = 70
   period             = 60
   evaluation_periods = 1
